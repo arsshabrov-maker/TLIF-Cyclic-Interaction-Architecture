@@ -37,6 +37,18 @@ The projection functions
 For Physics: Replace 
  with 
 For Waves: Replace 
+Interchangeable Projection Engines (Mutable Terms)
+A core feature of the TLIF Architecture by Arseniy Shabrov is the modularity of its projection terms. While the triple-linked cyclic weight bond 
+ remains constant to ensure structural integrity, the internal functions (
+) are fully interchangeable.
+Researchers can "mutate" these terms based on the physical nature of their data:
+Current Configuration (Optimized for Planck's Law):
+Term 1 (Exponential Decay): torch.exp(-x1 * self.wx + self.b1) — Models energy dissipation.
+Term 2 (Power Law): (torch.abs(x2 + self.b2) ** -self.W[6]) — Captures inverse-square or higher-order distributions.
+Term 3 (Linear Correction): (x1 * self.wz + self.b3) — Provides baseline adjustment.
+Customization Rules:
+You can replace any term with Oscillatory functions (e.g., torch.sin), Logarithmic scales, or even custom activation functions. The TLIF framework will automatically synchronize these new mathematical "imprints" through the shared cyclic weight linkage.
+        
  with 
 For Economics: Replace 
  with 
