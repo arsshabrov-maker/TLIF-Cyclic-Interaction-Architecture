@@ -3,30 +3,29 @@ import torch.nn as nn
 import torch.optim as optim
 import time
 
-# --- 1. ТВОЯ УНИКАЛЬНАЯ МОДЕЛЬ (TLIF - 6 параметров) ---
+# --- 1. ТВОЯ УНИКАЛЬНАЯ МОДЕЛЬ (TLIF) ---
 class TLIF_Net(nn.Module):
     def __init__(self):
         super().__init__()
-        # Циклическое ядро (3 веса)
+        # Циклическое ядро
         self.w1 = nn.Parameter(torch.ones(1) * 0.5)
         self.w2 = nn.Parameter(torch.ones(1) * 0.5)
         self.w3 = nn.Parameter(torch.ones(1) * 0.5)
         self.w4 = nn.Parameter(torch.ones(1) * 0.5)
-        # Проекции (3 веса + 3 смещения = 6)
+        # Проекции
         self.wx, self.wy, self.wz = [nn.Parameter(torch.ones(1)) for _ in range(3)]
         self.b1, self.b2, self.b3 = [nn.Parameter(torch.zeros(1)) for _ in range(3)]
+
+        # Исправление: добавляем список параметров W, чтобы обращение self.W[6] работало
+        self.W = nn.ParameterList([nn.Parameter(torch.ones(1)) for _ in range(8)])
 
     def forward(self, x):
         x1, x2 = x[:, 0:1], x[:, 1:2]
 
-        # МУТАЦИЯ: Добавляем возведение в степень (self.W[6] и W[7])
-        # Это позволит формуле прогибаться точно под "горб" Планка
-
         # 1-й отпечаток: Экспоненциальное затухание
         term1 = torch.exp(-x1 * self.wx + self.b1) * (self.w1 * self.w2)
 
-        # 2-й отпечаток: Степенная зависимость (Ключ к Планку!)
-        # Используем abs, чтобы не было ошибок с отрицательными числами
+        # 2-й отпечаток: Степенная зависимость (Используем self.W[6])
         term2 = (torch.abs(x2 + self.b2) ** -self.W[6]) * (self.w1 * self.w3)
 
         # 3-й отпечаток: Линейная коррекция
@@ -34,7 +33,7 @@ class TLIF_Net(nn.Module):
 
         return term1 + term2 + term3
 
-# --- 2. СТАНДАРТНЫЙ "ЧЕРНЫЙ ЯЩИК" (MLP - ~300 параметров) ---
+# --- 2. СТАНДАРТНЫЙ "ЧЕРНЫЙ ЯЩИК" (MLP) ---
 class MLP_BlackBox(nn.Module):
     def __init__(self):
         super().__init__()
@@ -58,21 +57,22 @@ def train_model(model, name):
     start_time = time.time()
     for _ in range(1000):
         optimizer.zero_grad()
-        loss = nn.MSELoss()(model(x_train), y_target)
+        output = model(x_train)
+        loss = nn.MSELoss()(output, y_target)
         loss.backward()
         optimizer.step()
     duration = time.time() - start_time
     params = sum(p.numel() for p in model.parameters())
     return loss.item(), duration, params
 
+# Выполнение
 loss_tlif, time_tlif, p_tlif = train_model(TLIF_Net(), "TLIF")
 loss_mlp, time_mlp, p_mlp = train_model(MLP_BlackBox(), "MLP")
 
-# --- 5. ВЕРДИКТ ДЛЯ ПУБЛИКАЦИИ ---
+# --- 5. ВЕРДИКТ ---
 print(f"{'Архитектура':<15} | {'Параметры':<10} | {'Ошибка (MSE)':<15} | {'Время (сек)':<10}")
-print("-" * 60)
+print("-" * 65)
 print(f"{'TLIF (Твоя)':<15} | {p_tlif:<10} | {loss_tlif:<15.6f} | {time_tlif:<10.2f}")
 print(f"{'MLP (Ящик)':<15} | {p_mlp:<10} | {loss_mlp:<15.6f} | {time_mlp:<10.2f}")
 
-accuracy_gain = (1 - (loss_tlif / (loss_mlp + 1e-8))) * 100
 print(f"\nВывод: Твоя формула в {p_mlp // p_tlif} раз компактнее!")
