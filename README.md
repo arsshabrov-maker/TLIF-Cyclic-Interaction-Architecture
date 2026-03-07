@@ -1,9 +1,14 @@
 # TLIF-Cyclic-Interaction-Architecture
-RESEARCH PAPER: Triple-Linked Interaction Formula (TLIF) Architecture Author: Arseniy Shabrov Nikolaevich Field: Neuro-Symbolic AI, Physical Informatics, Evolutionary Computation
+RESEARCH PAPER: Triple-Linked Interaction Formula (TLIF) Architecture Author: Arseniy Shabrov Nikolaevich Field: Neuro-Symbolic AI, 
+Physical Informatics, Evolutionary Computation
 1. ABSTRACT
-This paper introduces a novel mathematical framework called TLIF (Triple-Linked Interaction Formula). While standard Deep Learning models (MLP) rely on the "brute force" of thousands of parameters, TLIF utilizes a Cyclic Weight Coupling principle. Our benchmarks demonstrate that a compact 9-parameter TLIF structure achieves competitive accuracy against a 4,400+ parameter Neural Network in approximating complex physical laws (e.g., Planck's Law), proving that structural logic can outperform massive statistical models.
-2. THE CORE ARCHITECTURE (TLIF Logic)
-The fundamental innovation of TLIF lies in its Triangular Weight Linkage. Unlike standard neurons with independent weights, TLIF parameters form a closed-loop system:
+This paper introduces a novel mathematical framework called TLIF (Triple-Linked Interaction Formula). While standard Deep Learning
+models (MLP) rely on the "brute force" of thousands of parameters, TLIF utilizes a Cyclic Weight Coupling principle. Our benchmarks
+demonstrate that a compact 9-parameter TLIF structure achieves competitive accuracy against a 4,400+ parameter Neural Network in
+approximating complex physical laws (e.g., Planck's Law), proving that structural logic can outperform massive statistical models.
+3. THE CORE ARCHITECTURE (TLIF Logic)
+The fundamental innovation of TLIF lies in its Triangular Weight Linkage. Unlike standard neurons with independent weights,
+TLIF parameters form a closed-loop system:
 
 Key Innovation: Mutable Projection Engines (
 )
@@ -17,7 +22,8 @@ Oscillatory:
  for wave interference and cycles.
 Power-Law: 
  for gravitational or quantum distributions.
-This flexibility allows the model to "imprint" itself onto any mathematical surface by simply swapping the internal projection logic while maintaining the core 
+This flexibility allows the model to "imprint" itself onto any mathematical surface by simply swapping the internal projection 
+logic while maintaining the core 
  cyclic bond.
 3. BENCHMARK RESULTS (Planck’s Law Approximation)
 We tested TLIF against a standard Multi-Layer Perceptron (MLP) on the non-linear curve of Black-Body Radiation.
@@ -47,9 +53,13 @@ Term 1 (Exponential Decay): torch.exp(-x1 * self.wx + self.b1) — Models energy
 Term 2 (Power Law): (torch.abs(x2 + self.b2) ** -self.W[6]) — Captures inverse-square or higher-order distributions.
 Term 3 (Linear Correction): (x1 * self.wz + self.b3) — Provides baseline adjustment.
 Customization Rules:
-You can replace any term with Oscillatory functions (e.g., torch.sin), Logarithmic scales, or even custom activation functions. The TLIF framework will automatically synchronize these new mathematical "imprints" through the shared cyclic weight linkage.
+You can replace any term with Oscillatory functions (e.g., torch.sin), Logarithmic scales, or even custom activation functions. The TLIF framework
+will automatically synchronize these new mathematical "imprints" through the shared cyclic weight linkage.
         
  with 
 For Economics: Replace 
  with 
 The TLIF framework by Arseniy Shabrov automatically synchronizes these custom projections through the triple-linked weight system.
+The core cyclic bonds 
+ can be upgraded from simple scalar products to Non-linear Interaction Kernels (e.g., Gaussian, Trigonometric, or Fractional links). This allows 
+ the TLIF architecture to model resonance, interference, and quantum-like state transitions within the 3D-projection space.
